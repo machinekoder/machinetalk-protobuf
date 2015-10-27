@@ -53,7 +53,19 @@ enum EmcTrajectoryModeType {
 enum EmcCanonUnitsType {
     CANON_UNITS_INCHES  = 1;
     CANON_UNITS_MM      = 2;
-    CANON_UNITS_CM      = 3;
+    CANON_UNITS_CM      = 3;  // very unlikely since G20/G21 do not support CM
+}
+
+enum EmcLinearUnitsType {
+    LINEAR_UNITS_INCHES = 1;
+    LINEAR_UNITS_MM     = 2;
+    LINEAR_UNITS_CM     = 3;
+}
+
+enum EmcAngularUnitsType {
+    ANGULAR_UNITS_DEGREES = 1;
+    ANGULAR_UNITS_RADIAN  = 2;
+    ANGULAR_UNITS_GRAD    = 3;
 }
 
 enum EmcTimeUnitsType {
@@ -144,7 +156,7 @@ message EmcStatusConfigAxis {
     optional double         max_position_limit  = 5;
     optional double         min_ferror          = 6;
     optional double         min_position_limit  = 7;
-    optional double         units               = 8;
+    //optional double         units               = 8; value removed
     optional int32          home_sequence       = 9;
     optional double         max_acceleration    = 10;
     optional double         max_velocity        = 11;
@@ -220,17 +232,17 @@ message EmcStatusConfig {
     option (nanopb_msgopt).msgid = 1110;
 
     optional double                     default_acceleration     = 1;
-    optional double                     angular_units            = 2;
+    //optional double                     angular_units            = 2; field removed
     optional int32                      axes                     = 3;
     repeated EmcStatusConfigAxis        axis                     = 4;
     optional int32                      axis_mask                = 5;
     optional double                     cycle_time               = 6;
     optional int32                      debug                    = 7;
     optional EmcKinematicsType          kinematics_type          = 8;
-    optional double                     linear_units             = 9;
+    //optional double                     linear_units             = 9; field removed
     optional double                     max_acceleration         = 10;
     optional double                     max_velocity             = 11;
-    optional EmcCanonUnitsType          program_units            = 12;
+    optional EmcLinearUnitsType         linear_units             = 12;
     optional double                     default_velocity         = 13;
     repeated EmcProgramExtension        program_extension        = 14;
     optional EmcPositionOffsetType      position_offset          = 15;
@@ -257,6 +269,7 @@ message EmcStatusConfig {
     optional EmcTimeUnitsType           time_units               = 36;
     optional string                     name                     = 37;
     repeated EmcStatusUserCommand       user_command             = 38;
+    optional EmcAngularUnitsType        angular_units            = 39;
 }
 
 message EmcStatusMotion {
@@ -355,6 +368,7 @@ message EmcStatusInterp {
     optional EmcInterpExitCodeType  interpreter_errcode = 4;
     repeated EmcStatusMCode         mcodes              = 5;
     repeated EmcStatusSetting       settings            = 6;
+    optional EmcCanonUnitsType      program_units       = 7;
 }
 
 message EmcCommandParameters {
