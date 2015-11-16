@@ -106,6 +106,7 @@ class build_py(_build_py):
     generate_proto("../src/machinetalk/protobuf/motcmds.proto")
     generate_proto("../src/machinetalk/protobuf/nanopb.proto")
     generate_proto("../src/machinetalk/protobuf/object.proto")
+    generate_proto("../src/machinetalk/protobuf/param.proto")
     generate_proto("../src/machinetalk/protobuf/preview.proto")
     generate_proto("../src/machinetalk/protobuf/rtapi_message.proto")
     generate_proto("../src/machinetalk/protobuf/rtapicommand.proto")

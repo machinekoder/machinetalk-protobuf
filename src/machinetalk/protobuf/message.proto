@@ -21,6 +21,7 @@ import "machinetalk/protobuf/rtapi_message.proto";
 import "machinetalk/protobuf/config.proto";
 import "machinetalk/protobuf/preview.proto";
 import "machinetalk/protobuf/status.proto";
+import "machinetalk/protobuf/param.proto";
 
 message Container {
 
@@ -221,6 +222,8 @@ message Container {
     optional EmcStatusInterp emc_status_interp = 604 [(nanopb).type = FT_IGNORE];
 
     optional EmcCommandParameters emc_command_params = 610  [(nanopb).type = FT_IGNORE];
+
+    repeated ParamKey keys = 620 [(nanopb).type = FT_IGNORE];
 
     // less commonly used types
 
