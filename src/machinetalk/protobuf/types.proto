@@ -651,6 +651,14 @@ enum ContainerType {
     MT_LAUNCHER_WRITE_STDIN = 12613;
     MT_LAUNCHER_CALL = 12614;
     MT_LAUNCHER_SHUTDOWN = 12615;
+
+    // param pub-sub
+    MT_PARAM_FULL_UPDATE = 12700;
+    MT_PARAM_INCREMENTAL_UPDATE = 12701;
+    MT_PARAM_ERROR = 12702;
+    // param command
+    MT_PARAM_SET = 12710;
+    MT_PARAM_DELETE = 12711;
 }
 
 enum OriginIndex {
