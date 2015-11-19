@@ -32,5 +32,6 @@ message ParamKey {
     optional double    v_double = 7;  /// Double value.
     repeated ParamKey  v_list   = 8;  /// List value.
     repeated ParamKey  meta     = 9;  /// Meta keys.
+    optional bool      deleted  = 10; /// flags this key as deleted
 }
 
