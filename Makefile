@@ -35,6 +35,9 @@ BUILDDIR := build
 # generated C++ headers + source files
 CXXGEN   := $(BUILDDIR)/cpp
 
+# generated Java files
+JAVAGEN   := $(BUILDDIR)/java
+
 # generated Python files
 PYGEN    := $(BUILDDIR)/python
 
@@ -91,6 +94,9 @@ PROTO_CXX_INCS := ${PROTO_SPECS:$(SRCDIR)/%.proto=$(CXXGEN)/%.pb.h}
 # generated C++ sources
 PROTO_CXX_SRCS  :=  ${PROTO_SPECS:$(SRCDIR)/%.proto=$(CXXGEN)/%.pb.cc}
 
+# generated Java sources
+PROTO_JAVA_SRCS := ${PROTO_SPECS:$(SRCDIR)/%.proto=$(JAVAGEN)/%.java}
+
 # generated Javasript sources
 PROTO_PROTOBUFJS_SRCS  := ${PROTO_SPECS:$(SRCDIR)/%.proto=$(PROTOBUFJS_GEN)/%.js}
 
@@ -118,6 +124,7 @@ PBDEP_OPT += --vpath=$(DESCDIR)/compiler
 GENERATED += \
 	$(PROTO_CXX_SRCS)\
 	$(PROTO_CXX_INCS) \
+	$(PROTO_JAVA_SRCS) \
 	$(PROTO_PY_TARGETS) \
 	$(PROTO_PY_EXTRAS)
 
@@ -146,6 +153,19 @@ $(CXXGEN)/%.pb.cc $(CXXGEN)/%.pb.h: $(SRCDIR)/%.proto
 	--proto_path=$(SRCDIR)/ \
 	--proto_path=$(GPBINCLUDE)/ \
 	--cpp_out=$(CXXGEN) \
+	$<
+
+#---------- Java rules -----------
+#
+# generate .java from proto files
+# for command.proto, generated files are: command.java
+$(JAVAGEN)/%.java: $(SRCDIR)/%.proto
+	$(ECHO) "protoc create $@ from $<"
+	@mkdir -p $(JAVAGEN)/machinetalk/protobuf
+	$(Q)$(PROTOC) $(PROTOJAVA_FLAGS) \
+	--proto_path=$(SRCDIR)/ \
+	--proto_path=$(GPBINCLUDE)/ \
+	--java_out=$(JAVAGEN)/machinetalk/protobuf \
 	$<
 
 # ------------- Python rules ------------
